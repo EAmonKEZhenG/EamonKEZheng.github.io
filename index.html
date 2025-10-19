@@ -76,42 +76,44 @@ I’m passionate about exploring how AI can empower human creativity.
 When not coding, I enjoy music, photography, and teaching.` 
     };
 
-    // 打字动画函数
+    // 打字机效果
     function typeWriter(text, speed = 20, callback) {
-      terminal.textContent = "";
+      terminal.innerHTML = ""; // 清空
       cursor.style.display = "inline-block";
       let i = 0;
       const interval = setInterval(() => {
         if (i < text.length) {
-          terminal.textContent += text.charAt(i);
+          const char = text.charAt(i);
+          if (char === "\n") terminal.innerHTML += "<br>";
+          else terminal.innerHTML += char;
           i++;
         } else {
           clearInterval(interval);
           if (callback) callback();
-          blinkCursor();
         }
       }, speed);
     }
 
-    // 光标闪烁
-    function blinkCursor() {
-      setInterval(() => {
-        cursor.style.visibility = (cursor.style.visibility === "hidden") ? "visible" : "hidden";
-      }, 500);
-    }
+    // 闪烁光标
+    setInterval(() => {
+      cursor.style.visibility = (cursor.style.visibility === "hidden") ? "visible" : "hidden";
+    }, 500);
 
-    // 点击导航栏
+    // 点击导航栏事件
     document.querySelectorAll(".nav a").forEach(link => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const key = e.target.getAttribute("data-content");
 
-        // 如果点击的是 CV，先显示下载动画再触发下载
         if (key === "cv") {
           typeWriter(contents.cv, 25, () => {
+            // 模拟下载动画后执行下载
             setTimeout(() => {
-              window.location.href = "ChenzhengLi_CV.pdf"; // 自动下载
-            }, 1500);
+              const link = document.createElement("a");
+              link.href = "ChenzhengLi_CV.pdf";
+              link.download = "ChenzhengLi_CV.pdf";
+              link.click();
+            }, 1200);
           });
         } else {
           typeWriter(contents[key]);
