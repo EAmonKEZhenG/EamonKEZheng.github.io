@@ -13,18 +13,51 @@
     <p class="subtitle">MSc Student in Data Science at SFU</p>
 
     <nav class="nav">
-      <a href="#email">Email</a>
-      <a href="#cv">CV</a>
-      <a href="#experience">Experience</a>
-      <a href="#publish">Publish</a>
-      <a href="#story">Story</a>
+      <a href="#" data-content="email">Email</a>
+      <a href="#" data-content="cv">CV</a>
+      <a href="#" data-content="experience">Experience</a>
+      <a href="#" data-content="publish">Publish</a>
+      <a href="#" data-content="story">Story</a>
     </nav>
 
-    <div class="terminal" id="email">
-      &gt; open email<br>
-      - lichenzheng2000 [at] gmail [dot] com<br>
-      - chenzheng [dot] li [at] sfu [dot] ca
+    <div class="terminal" id="terminal">
+      <span id="terminal-text"></span>
     </div>
   </div>
+
+  <script>
+    const terminal = document.getElementById("terminal-text");
+
+    const contents = {
+      email: `> open email\n- lichenzheng2000 [at] gmail [dot] com\n- chenzheng [dot] li [at] sfu [dot] ca`,
+      cv: `> show cv\n- PDF available at: github.com/chenzheng-li/cv\n- Updated 2025`,
+      experience: `> list experience\n- Data Science Intern @ TBD\n- Research Assistant @ SFU\n- Co-founder @ Big O One`,
+      publish: `> show publications\n- CHI 2024: Human-AI Interaction in Material Sensing\n- SFU Technical Report: EMD-based Signal Classification`,
+      story: `> tell story\n- Passionate about Human-Computer Interaction and Machine Learning.\n- Exploring how data and design empower human creativity.`
+    };
+
+    function typeWriter(text, speed = 25) {
+      terminal.textContent = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          terminal.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, speed);
+    }
+
+    document.querySelectorAll(".nav a").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const key = e.target.getAttribute("data-content");
+        typeWriter(contents[key]);
+      });
+    });
+
+    typeWriter(contents.email);
+  </script>
 </body>
 </html>
