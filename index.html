@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,15 +11,15 @@
   <div class="container">
     <img src="profile.jpg" alt="Profile photo" class="avatar">
     <h1>Chenzheng Li</h1>
-    <p class="subtitle">MSc Student in Data Science at SFU</p>
+    <p class="subtitle">MSc Student in Big Data at SFU</p>
 
     <nav class="nav">
-      <a href="#" data-content="email">Email</a>
-      <a href="#" data-content="cv">CV</a>
-      <a href="#" data-content="experience">Experience</a>
-      <a href="#" data-content="publish">Publish</a>
+      <a href="#" data-content="about">About Me</a>
       <a href="#" data-content="hiring">Hiring</a>
-      <a href="https://github.com/chenzheng" target="_blank">GitHub↗</a>
+      <a href="#" data-content="experience">Experience</a>
+      <a href="#" data-content="skill">Skill</a>
+      <a href="#" data-content="contact">Contact</a>
+      <a href="#" data-content="cv">CV</a>
     </nav>
 
     <div class="terminal">
@@ -30,59 +31,96 @@
   <script>
     const terminal = document.getElementById("terminal-text");
     const cursor = document.querySelector(".cursor");
+    let typingInterval = null;  // 用来保存当前打字动画
+    let isTyping = false;       // 打字状态锁
 
     const contents = {
-      email: `> open email
+      about: `> open about
 
-- lichenzheng2000 [at] gmail [dot] com
-- chenzheng [dot] li [at] sfu [dot] ca`,
+My journey started with a box of LEGO robots. The first time I “programmed” one to move, I felt a spark — and that spark has been my compass ever since.
 
-      cv: `> downloading CV...`,
+Today, I’m a Master’s student in Big Data at Simon Fraser University, still chasing that same excitement of building and solving. Along the way, I’ve worked as a Research Assistant at SFU, exploring human–computer interaction and smart sensing, and as a data engineer at Movmint, where I learned what it takes to optimize real-world systems at scale.
 
-      experience: `> open experience
+But outside data and code, another dream quietly simmers — I want to become a good cook.  
+Before coming to Canada in 2019, I had never stepped into a kitchen. My mother cooked every meal for me, so cooking was something I deeply appreciated but never understood. Like many international students, I started cooking just to survive. But dish by dish, I found myself loving the process — the rhythm, the small creativity in every plate, and that wonderful (you know, sometime people lie) compliment from friends: “Wow, this is really good!” That moment of sharing feels strangely similar to programming — both start from raw ingredients and end with something that makes people happy.
 
-- Research Assistant @ SFU, CHI 2024 paper on Human-AI Interaction
-- Co-founder @ Big O One, organized 18 industry-academic sessions
-- Strong skills in Spark, Hadoop, ML model building, and HCI research`,
+And yes, when I’m not experimenting with flavors, I’m probably playing video games. They’ve been my way to reset, to find calm. No matter how chaotic the day gets, that virtual world feels like a lighthouse, reminding me why I love technology in the first place.
 
-      publish: `> open publish
+I believe technology is not just about machines, but about people. I enjoy building connections as much as I enjoy building systems. That’s why I co-founded *Big O One*, a student-led initiative that brings industry professionals and graduates back to campus to share their journeys — helping peers bridge the gap between university and the working world.
 
-- CHI 2024: Human-AI Interaction in Material Sensing
-- SFU Technical Report: EMD-based Signal Classification
-- Workshop: Interaction & Intelligence 2023`,
+I don’t see myself as one of those geniuses who create OpenAI or Tesla. But I love exploring new ideas, learning new things, and trying (sometimes failing) to make cool stuff work. As we say in Chinese, **学无止境 (xué wú zhǐ jìng)** — “learning has no limit.”  
+That, and maybe one day opening a small restaurant, are the two things that keep me moving.`,
 
       hiring: `> open hiring
 
-I am currently seeking a Data Science / Machine Learning / HCI-related co-op internship
-for 2026 in the Greater Vancouver Area.
+I am currently seeking a computer science–related co-op internship for the Summer 2026 term (May–August). 
+This internship will fulfill the work experience requirement for my Master’s program in Big Data at Simon Fraser University.
 
-I enjoy working on:
-- Applied Machine Learning, HCI, and Data Visualization
-- Data-driven decision systems and AI interfaces
-- Projects that connect humans and intelligent tools
+Availability
+- Start: May 2026
+- Duration: 4 or 8 months (flexible)
+- After the co-op: I will return to SFU for my final 4-month academic term.
 
-Experience highlights:
-- Research Assistant @ SFU, CHI 2024 publication on Human-AI Interaction
-- Co-founder @ Big O One, organized 18 industry-academic sessions at SFU
-- Coursework in Big Data (Spark, Hadoop) and Machine Learning
+If you are hiring, or if you know of any opportunities or connections, I would love to hear from you. 
+Please feel free to reach out — I’m always open to a conversation.`,
 
-If you are hiring or open to collaboration, please feel free to reach out!`
+      experience: `> open experience
+
+- Research Assistant @ SFU — CHI 2024 paper on Human-AI Interaction
+- Co-founder @ Big O One — organized 18 industry-academic sessions bridging students and professionals
+- Technical skills: Spark, Hadoop, Python (pandas, scikit-learn), HCI Research methods`,
+
+      skill: `> open skill
+
+Programming: Python, Java, SQL, R
+Frameworks: PySpark, TensorFlow, scikit-learn
+Data Tools: Hadoop, AWS EMR, Tableau
+Research: HCI study design, machine learning model evaluation
+Other: Git, Linux, LaTeX`,
+
+      contact: `> open contact
+
+- Email: lichenzheng2000 [at] gmail [dot] com
+- School: chenzheng [dot] li [at] sfu [dot] ca
+- GitHub: github.com/chenzheng
+- LinkedIn: linkedin.com/in/chenzhengli`,
+
+      cv: `> downloading CV...`
     };
 
     // 打字机效果
-    function typeWriter(text, speed = 20, callback) {
-      terminal.innerHTML = ""; 
+    function typeWriter(text, speed = 10, callback) {
+      // 若正在打字，先中断上一个
+      if (typingInterval) {
+        clearInterval(typingInterval);
+        typingInterval = null;
+      }
+
+      isTyping = true;
+      terminal.innerHTML = "";
+       terminal.innerHTML = `<span style="color:#00ff88; font-weight:500; text-shadow:0 0 8px #00ff88;">chenzheng@CZ_MOTHERSHIP:~$</span> `;
       cursor.style.display = "inline-block";
       let i = 0;
-      const interval = setInterval(() => {
+      terminal.style.height = "100px"; 
+
+      typingInterval = setInterval(() => {
         if (i < text.length) {
           const char = text.charAt(i);
           terminal.innerHTML += (char === "\n" ? "<br>" : char);
           i++;
-          terminal.scrollTop = terminal.scrollHeight; // 保持滚动到底部
+
+          const currentHeight = terminal.clientHeight;
+          const scrollHeight = terminal.scrollHeight;
+          if (scrollHeight > currentHeight && currentHeight < 1500) {
+            terminal.style.height = Math.min(scrollHeight + 10, 1500) + "px";
+          }
+          terminal.scrollTop = terminal.scrollHeight;
         } else {
-          clearInterval(interval);
+          clearInterval(typingInterval);
+          typingInterval = null;
+          isTyping = false;
           if (callback) callback();
+          terminal.style.overflowY = "auto";
         }
       }, speed);
     }
@@ -96,13 +134,17 @@ If you are hiring or open to collaboration, please feel free to reach out!`
     document.querySelectorAll(".nav a").forEach(link => {
       link.addEventListener("click", (e) => {
         const key = e.target.getAttribute("data-content");
-        if (!key) return; // 忽略外链
-
+        if (!key) return;
         e.preventDefault();
+
+        // 打断当前动画，立即切换
+        if (typingInterval) {
+          clearInterval(typingInterval);
+          typingInterval = null;
+        }
 
         if (key === "cv") {
           typeWriter(contents.cv, 25, () => {
-            // 模拟下载效果
             setTimeout(() => {
               const link = document.createElement("a");
               link.href = "ChenzhengLi_CV.pdf";
@@ -116,8 +158,8 @@ If you are hiring or open to collaboration, please feel free to reach out!`
       });
     });
 
-    // 默认显示 email
-    typeWriter(contents.email);
+    // 默认显示 about me
+    typeWriter(contents.about);
   </script>
 </body>
 </html>

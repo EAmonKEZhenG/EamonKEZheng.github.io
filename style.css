@@ -1,10 +1,35 @@
+/* -------------------------
+   🎨 字体引入（本地 fronts 文件夹）
+-------------------------- */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fronts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fronts/IBMPlexMono-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fronts/IBMPlexMono-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* -------------------------
+   🧱 页面基础结构
+-------------------------- */
 body {
-  font-family: 'Courier New', monospace;
-  background-color: #ffffff;
-  color: #000000;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: #fff;
+  color: #000;
   text-align: center;
   margin: 60px auto;
-  max-width: 700px;
+  max-width: 1500px;
 }
 
 .avatar {
@@ -16,7 +41,7 @@ body {
 
 h1 {
   margin: 8px 0;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -28,48 +53,89 @@ h1 {
 
 .nav {
   margin: 25px 0;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 .nav a {
   text-decoration: none;
   color: #000;
-  margin: 0 10px;
+  margin: 0 12px;
   font-weight: 500;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s;
 }
-
 .nav a:hover {
   border-bottom: 1px solid #000;
 }
 
+/* -------------------------
+   🖥️ 终端样式
+-------------------------- */
 .terminal {
   display: inline-block;
   text-align: left;
-  background-color: #000;
-  color: #00ff7f;
-  padding: 25px 30px;
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 1.6;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-  width: 520px;          /* 固定宽度 */
-  height: 300px;         /* 固定高度 */
-  overflow-y: auto;      /* 可滚动 */
-  white-space: pre-wrap; /* 保留换行 */
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  line-height: 1.85;              /* ✅ 增加行距，阅读更轻松 */
+  letter-spacing: 0.25px;         /* ✅ 更自然的字体间距 */
+  width: 750px;
+  min-height: 100px;
+  color: #e8e8e8;
+  background-color: #0a0a0a;
+  padding: 1px 60px 1px;
+  border-radius: 5px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  white-space: pre-wrap;
   position: relative;
+  transition: all 0.4s ease;
 }
 
+/* 强调词高亮（绿色微光） */
+.terminal strong {
+  color: #00ff88;
+  font-weight: 500;
+  text-shadow: 0 0 5px #00ff88;
+}
+
+/* 打字光标 */
 .cursor {
-  color: #00ff7f;
+  color: #00ff88;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
   animation: blink 0.8s infinite;
   position: absolute;
   bottom: 15px;
+  text-shadow: 0 0 5px #00ff88;
+}
+
+/* 滚动条隐藏 */
+.terminal::-webkit-scrollbar {
+  display: none;
+}
+.terminal {
+  scrollbar-width: none;
 }
 
 @keyframes blink {
   0%, 50% { opacity: 1; }
   50%, 100% { opacity: 0; }
+}
+
+/* 换行优化 */
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* -------------------------
+   📱 响应式适配
+-------------------------- */
+@media (max-width: 1500px) {
+  .terminal {
+    width: 90%;
+    padding: 30px;
+    font-size: 15px;
+  }
 }
