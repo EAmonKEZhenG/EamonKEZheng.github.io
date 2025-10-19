@@ -1,165 +1,280 @@
 <!DOCTYPE html>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Chenzheng Li</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Chenzheng Li — MSc Student in Big Data at Simon Fraser University." />
+
+  <style>
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype'),
+          local('IBM Plex Mono');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('fonts/IBMPlexMono-Medium.ttf') format('truetype'),
+          local('IBM Plex Mono Medium');
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url('fonts/IBMPlexMono-SemiBold.ttf') format('truetype'),
+          local('IBM Plex Mono SemiBold');
+      font-weight: 600;
+      font-style: normal;
+    }
+    /* 🌿 Base Layout */
+    body {
+      margin: 0;
+      background: #ECE2D0;
+      color: #111;
+      font-family: -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+
+    .head {
+      text-align: center;
+    }
+
+    .head img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .tag {
+      color: #444;
+      font-size: 15px;
+      margin-bottom: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #000;
+      transition: all 200ms ease;
+      font-weight: 500;
+    }
+
+    .links a:hover {
+      color: #333;
+      transform: translateY(-1px);
+    }
+
+    /* ===========================
+       🖥️ Terminal Style
+    ============================ */
+    .terminal {
+      display: block;
+      font-family: "IBM Plex Mono", monospace;
+      background: #0a0a0a;
+      color: #e6e6e6;
+      border-radius: 8px;
+      padding: 8px 16px 6px 16px;   /* ✅ 极小上下间距 */
+      margin-top: 12px;
+      line-height: 1.55;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ✅ Prompt style (with glow) */
+    .prompt {
+      color: #00ff88;
+      font-weight: 600;
+      text-shadow: 0 0 6px #00ff88;
+    }
+
+    /* ✅ Blinking cursor */
+    .cursor {
+      color: #00ff88;
+      font-weight: bold;
+      font-size: 15px;
+      animation: blink 0.8s infinite;
+      position: relative;
+      bottom: 0;
+      text-shadow: 0 0 5px #00ff88;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Compact pre */
+    pre {
+      margin: 0;
+      padding: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.55;
+    }
+
+    .terminal[hidden] {
+      display: none;
+    }
+
+    .terminal a {
+      color: #8ab4f8;
+      text-decoration: underline;
+    }
+
+    .terminal a:hover {
+      color: #cde3ff;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container">
-    <img src="profile.jpg" alt="Profile photo" class="avatar">
-    <h1>Chenzheng Li</h1>
-    <p class="subtitle">MSc Student in Big Data at SFU</p>
+  <div class="wrap">
+    <div class="head">
+      <img src="profile.jpg" alt="Chenzheng Li" loading="eager" decoding="async" />
+      <h1>Chenzheng Li</h1>
+      <p class="tag">MSc Student in Big Data at Simon Fraser University</p>
 
-    <nav class="nav">
-      <a href="#" data-content="about">About Me</a>
-      <a href="#" data-content="hiring">Hiring</a>
-      <a href="#" data-content="experience">Experience</a>
-      <a href="#" data-content="skill">Skill</a>
-      <a href="#" data-content="contact">Contact</a>
-      <a href="#" data-content="cv">CV</a>
-    </nav>
+      <div class="links">
+        <a href="#about" data-target="about">About</a>
+        <a href="#hiring" data-target="hiring">Hiring</a>
+        <a href="#contact" data-target="contact">Contact</a>
+        <a href="ChenzhengLi_CV.pdf">CV↗</a>
+      </div>
+    </div>
 
-    <div class="terminal">
-      <pre id="terminal-text"></pre>
-      <span class="cursor">▌</span>
+    <div class="body">
+      <div id="terminal" class="terminal" hidden></div>
     </div>
   </div>
 
   <script>
-    const terminal = document.getElementById("terminal-text");
-    const cursor = document.querySelector(".cursor");
-    let typingInterval = null;  // 用来保存当前打字动画
-    let isTyping = false;       // 打字状态锁
+    (function(){
+      const terminal = document.getElementById('terminal');
+      const navLinks = document.querySelectorAll('.links a[data-target]');
+      let typingTimer = null;
 
-    const contents = {
-      about: `> open about
+      const content = {
+        about: [
+          '<span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span> open about',
+          '',
+          'My journey started with a box of LEGO robots. The first time I “programmed” one to move, I felt a spark — and that spark has been my compass ever since.',
+          '',
+          'Today, I’m a Master’s student in Big Data at Simon Fraser University, still chasing that same excitement of building and solving. Along the way, I’ve worked as a Research Assistant at SFU, exploring human–computer interaction and smart sensing, and as a data engineer at Movmint, where I learned what it takes to optimize real-world systems at scale.',
+          '',
+          'But outside data and code, another dream quietly simmers — I want to become a good cook. Before coming to Canada in 2019, I had never stepped into a kitchen. My mother cooked every meal for me, so cooking was something I deeply appreciated but never understood. Like many international students, I started cooking just to survive. But dish by dish, I found myself loving the process — the rhythm, the small creativity in every plate, and that wonderful (you know, sometimes people lie) compliment from friends: “Wow, this is really good!” That moment of sharing feels strangely similar to programming — both start from raw ingredients and end with something that makes people happy.',
+          '',
+          'And yes, when I’m not experimenting with flavors, I’m probably playing video games. They’ve been my way to reset, to find calm. No matter how chaotic the day gets, that virtual world feels like a lighthouse, reminding me why I love technology in the first place.',
+          '',
+          'I don’t see myself as one of those geniuses who create OpenAI or Tesla. But I love exploring new ideas, learning new things, and trying (sometimes failing) to make cool stuff work. As we say in Chinese, 学无止境 (xué wú zhǐ jìng) — “learning has no limit.”',
+          '',
+          'That, and maybe one day opening a small restaurant, are the two things that keep me moving.'
+        ],
 
-My journey started with a box of LEGO robots. The first time I “programmed” one to move, I felt a spark — and that spark has been my compass ever since.
+        hiring: [
+          '<span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span> open hiring',
+          '',
+          'I’m currently seeking a computer science-related co-op internship for Summer 2026.',
+          'I’m open to both 4-month and 8-month placements — this internship will fulfill my graduation requirement.',
+          '',
+          'If you have any opportunities or resources, please feel free to contact me.'
+        ],
 
-Today, I’m a Master’s student in Big Data at Simon Fraser University, still chasing that same excitement of building and solving. Along the way, I’ve worked as a Research Assistant at SFU, exploring human–computer interaction and smart sensing, and as a data engineer at Movmint, where I learned what it takes to optimize real-world systems at scale.
+        contact: [
+          '<span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span> open contact',
+          '',
+          '- lichenzheng2000 (at) gmail (dot) com',
+          '- chenzheng (dot) li (at) sfu (dot) ca',
+          '- github.com/chenzheng',
+          '- linkedin.com/in/chenzhengli'
+        ]
+      };
 
-But outside data and code, another dream quietly simmers — I want to become a good cook.  
-Before coming to Canada in 2019, I had never stepped into a kitchen. My mother cooked every meal for me, so cooking was something I deeply appreciated but never understood. Like many international students, I started cooking just to survive. But dish by dish, I found myself loving the process — the rhythm, the small creativity in every plate, and that wonderful (you know, sometime people lie) compliment from friends: “Wow, this is really good!” That moment of sharing feels strangely similar to programming — both start from raw ingredients and end with something that makes people happy.
+      function clear() { terminal.textContent = ''; }
 
-And yes, when I’m not experimenting with flavors, I’m probably playing video games. They’ve been my way to reset, to find calm. No matter how chaotic the day gets, that virtual world feels like a lighthouse, reminding me why I love technology in the first place.
+      function typeLines(lines) {
+        clear();
+        terminal.hidden = false;
+        let i = 0;
 
-I believe technology is not just about machines, but about people. I enjoy building connections as much as I enjoy building systems. That’s why I co-founded *Big O One*, a student-led initiative that brings industry professionals and graduates back to campus to share their journeys — helping peers bridge the gap between university and the working world.
+        function step() {
+          if (i >= lines.length) return;
 
-I don’t see myself as one of those geniuses who create OpenAI or Tesla. But I love exploring new ideas, learning new things, and trying (sometimes failing) to make cool stuff work. As we say in Chinese, **学无止境 (xué wú zhǐ jìng)** — “learning has no limit.”  
-That, and maybe one day opening a small restaurant, are the two things that keep me moving.`,
+          let line = lines[i];
+          if (line.includes("<span")) {
+            // HTML 整体插入
+            terminal.innerHTML += line + "<br>";
+            i++;
+            typingTimer = setTimeout(step, 50);
+          } else {
+            // 普通文本逐字打出
+            let j = 0;
+            function typeChar() {
+              if (j < line.length) {
+                terminal.innerHTML += line[j];
+                j++;
+                terminal.scrollTop = terminal.scrollHeight;
+                typingTimer = setTimeout(typeChar, 4);
+              } else {
+                terminal.innerHTML += "<br>";
+                i++;
+                typingTimer = setTimeout(step, 20);
+              }
+            }
+            typeChar();
+          }
+        }
 
-      hiring: `> open hiring
-
-I am currently seeking a computer science–related co-op internship for the Summer 2026 term (May–August). 
-This internship will fulfill the work experience requirement for my Master’s program in Big Data at Simon Fraser University.
-
-Availability
-- Start: May 2026
-- Duration: 4 or 8 months (flexible)
-- After the co-op: I will return to SFU for my final 4-month academic term.
-
-If you are hiring, or if you know of any opportunities or connections, I would love to hear from you. 
-Please feel free to reach out — I’m always open to a conversation.`,
-
-      experience: `> open experience
-
-- Research Assistant @ SFU — CHI 2024 paper on Human-AI Interaction
-- Co-founder @ Big O One — organized 18 industry-academic sessions bridging students and professionals
-- Technical skills: Spark, Hadoop, Python (pandas, scikit-learn), HCI Research methods`,
-
-      skill: `> open skill
-
-Programming: Python, Java, SQL, R
-Frameworks: PySpark, TensorFlow, scikit-learn
-Data Tools: Hadoop, AWS EMR, Tableau
-Research: HCI study design, machine learning model evaluation
-Other: Git, Linux, LaTeX`,
-
-      contact: `> open contact
-
-- Email: lichenzheng2000 [at] gmail [dot] com
-- School: chenzheng [dot] li [at] sfu [dot] ca
-- GitHub: github.com/chenzheng
-- LinkedIn: linkedin.com/in/chenzhengli`,
-
-      cv: `> downloading CV...`
-    };
-
-    // 打字机效果
-    function typeWriter(text, speed = 10, callback) {
-      // 若正在打字，先中断上一个
-      if (typingInterval) {
-        clearInterval(typingInterval);
-        typingInterval = null;
+        step();
       }
 
-      isTyping = true;
-      terminal.innerHTML = "";
-       terminal.innerHTML = `<span style="color:#00ff88; font-weight:500; text-shadow:0 0 8px #00ff88;">chenzheng@CZ_MOTHERSHIP:~$</span> `;
-      cursor.style.display = "inline-block";
-      let i = 0;
-      terminal.style.height = "100px"; 
 
-      typingInterval = setInterval(() => {
-        if (i < text.length) {
-          const char = text.charAt(i);
-          terminal.innerHTML += (char === "\n" ? "<br>" : char);
-          i++;
-
-          const currentHeight = terminal.clientHeight;
-          const scrollHeight = terminal.scrollHeight;
-          if (scrollHeight > currentHeight && currentHeight < 1500) {
-            terminal.style.height = Math.min(scrollHeight + 10, 1500) + "px";
-          }
-          terminal.scrollTop = terminal.scrollHeight;
-        } else {
-          clearInterval(typingInterval);
-          typingInterval = null;
-          isTyping = false;
-          if (callback) callback();
-          terminal.style.overflowY = "auto";
-        }
-      }, speed);
-    }
-
-    // 光标闪烁
-    setInterval(() => {
-      cursor.style.visibility = (cursor.style.visibility === "hidden") ? "visible" : "hidden";
-    }, 500);
-
-    // 点击导航
-    document.querySelectorAll(".nav a").forEach(link => {
-      link.addEventListener("click", (e) => {
-        const key = e.target.getAttribute("data-content");
-        if (!key) return;
-        e.preventDefault();
-
-        // 打断当前动画，立即切换
-        if (typingInterval) {
-          clearInterval(typingInterval);
-          typingInterval = null;
-        }
-
-        if (key === "cv") {
-          typeWriter(contents.cv, 25, () => {
-            setTimeout(() => {
-              const link = document.createElement("a");
-              link.href = "ChenzhengLi_CV.pdf";
-              link.download = "ChenzhengLi_CV.pdf";
-              link.click();
-            }, 1000);
-          });
-        } else {
-          typeWriter(contents[key]);
-        }
+      navLinks.forEach(link => {
+        link.onclick = e => {
+          e.preventDefault();
+          const key = link.dataset.target;
+          clearTimeout(typingTimer);
+          typeLines(content[key]);
+        };
       });
-    });
 
-    // 默认显示 about me
-    typeWriter(contents.about);
+      if (location.hash.slice(1) && content[location.hash.slice(1)]) {
+        typeLines(content[location.hash.slice(1)]);
+      }
+    })();
   </script>
 </body>
 </html>
