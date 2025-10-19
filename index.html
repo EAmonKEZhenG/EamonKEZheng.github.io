@@ -18,7 +18,7 @@
       <a href="#" data-content="experience">Experience</a>
       <a href="#" data-content="publish">Publish</a>
       <a href="#" data-content="hiring">Hiring</a>
-      <a href="#" data-content="story">Story</a>
+      <a href="https://github.com/chenzheng" target="_blank">GitHub↗</a>
     </nav>
 
     <div class="terminal">
@@ -41,11 +41,9 @@
 
       experience: `> open experience
 
-I have worked on:
-- Research Assistant @ SFU, focusing on HCI + ML
-- Data Science Intern @ TBD
-- Co-founder @ Big O One (industry-academia event organizer)
-- Experienced in Spark, Hadoop, and data analysis`,
+- Research Assistant @ SFU, CHI 2024 paper on Human-AI Interaction
+- Co-founder @ Big O One, organized 18 industry-academic sessions
+- Strong skills in Spark, Hadoop, ML model building, and HCI research`,
 
       publish: `> open publish
 
@@ -68,25 +66,20 @@ Experience highlights:
 - Co-founder @ Big O One, organized 18 industry-academic sessions at SFU
 - Coursework in Big Data (Spark, Hadoop) and Machine Learning
 
-If you are hiring or open to collaboration, please feel free to reach out!`,
-
-      story: `> open story
-
-I’m passionate about exploring how AI can empower human creativity.
-When not coding, I enjoy music, photography, and teaching.` 
+If you are hiring or open to collaboration, please feel free to reach out!`
     };
 
     // 打字机效果
     function typeWriter(text, speed = 20, callback) {
-      terminal.innerHTML = ""; // 清空
+      terminal.innerHTML = ""; 
       cursor.style.display = "inline-block";
       let i = 0;
       const interval = setInterval(() => {
         if (i < text.length) {
           const char = text.charAt(i);
-          if (char === "\n") terminal.innerHTML += "<br>";
-          else terminal.innerHTML += char;
+          terminal.innerHTML += (char === "\n" ? "<br>" : char);
           i++;
+          terminal.scrollTop = terminal.scrollHeight; // 保持滚动到底部
         } else {
           clearInterval(interval);
           if (callback) callback();
@@ -94,26 +87,28 @@ When not coding, I enjoy music, photography, and teaching.`
       }, speed);
     }
 
-    // 闪烁光标
+    // 光标闪烁
     setInterval(() => {
       cursor.style.visibility = (cursor.style.visibility === "hidden") ? "visible" : "hidden";
     }, 500);
 
-    // 点击导航栏事件
+    // 点击导航
     document.querySelectorAll(".nav a").forEach(link => {
       link.addEventListener("click", (e) => {
-        e.preventDefault();
         const key = e.target.getAttribute("data-content");
+        if (!key) return; // 忽略外链
+
+        e.preventDefault();
 
         if (key === "cv") {
           typeWriter(contents.cv, 25, () => {
-            // 模拟下载动画后执行下载
+            // 模拟下载效果
             setTimeout(() => {
               const link = document.createElement("a");
               link.href = "ChenzhengLi_CV.pdf";
               link.download = "ChenzhengLi_CV.pdf";
               link.click();
-            }, 1200);
+            }, 1000);
           });
         } else {
           typeWriter(contents[key]);
@@ -121,7 +116,7 @@ When not coding, I enjoy music, photography, and teaching.`
       });
     });
 
-    // 默认显示 email 内容
+    // 默认显示 email
     typeWriter(contents.email);
   </script>
 </body>
