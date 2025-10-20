@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WooDowel — Interactive Wooden Sensor System</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #120a05 0%, #0a0503 100%);
+      color: #ffb86b;
+      font-family: 'IBM Plex Mono', monospace;
+      line-height: 1.7;
+      -webkit-font-smoothing: none;
+      text-rendering: geometricPrecision;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      color: #ffcc80;
+      text-shadow: 0 0 8px rgba(255, 200, 100, 0.6);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: #ffe0a3;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px #ffb86b;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 180, 80, 0.3);
+      margin: 20px 0;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 480px;
+      border: none;
+      margin: 30px 0;
+      box-shadow: 0 0 25px rgba(255, 180, 80, 0.4);
+      border-radius: 10px;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back a {
+      color: #ffb86b;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(255, 200, 100, 0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WooDowel — Electrode Isolation for Electromagnetic Shielding in Triboelectric Plywood Sensors</h1>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>
+      WooDowel is an interdisciplinary research project exploring how natural wood can become an interactive sensing medium.
+      The work investigates <b>electrode isolation and electromagnetic shielding</b> in triboelectric plywood sensors — 
+      a method enabling stable, noise-resistant signal acquisition even when the electrodes overlap inside multi-layered wood panels.
+    </p>
+    <p>
+      The project was presented at <b>CHI 2024</b> (Conference on Human Factors in Computing Systems),
+      the world’s leading venue for human–computer interaction research.
+    </p>
+    <!-- ADD IMAGE -->
+    <img src="pic/woodowel_intro.jpg" alt="WooDowel prototype overview">
+  </div>
+
+  <div class="section">
+    <h2>Technical Approach</h2>
+    <p>
+      The WooDowel system builds upon triboelectric nanogenerator (TENG) principles — 
+      converting mechanical vibrations into electrical signals via the triboelectric effect. 
+      Our key contribution was redesigning the plywood structure to balance signal sensitivity, 
+      EM shielding, and structural durability.
+    </p>
+    <img src="pic/woodowel_structure.png" alt="Cross-section showing electrode isolation layers">
+    <p>
+      Each sensor layer consists of copper electrodes overlapping across a PTFE triboelectric film, 
+      sandwiched between grounded EM-shielding layers. 
+      These layers are interconnected through <strong>3D-printed conductive dowels</strong> that 
+      act as modular switches — woodworkers can “turn off” damaged regions by replacing a conductive dowel 
+      with a wooden one. This preserves most of the sensor’s area and prevents short circuits.
+    </p>
+    <!-- ADD IMAGE -->
+    <img src="pic/dowel_design.png" alt="Cross-section showing electrode isolation layers">
+    <p>
+      To improve usability, we integrated a <strong>short-circuit detector</strong> — a small buzzer module that 
+      alerts users when a nail or screw causes a short. 
+      This makes WooDowel more practical for real woodworking environments.
+    </p>
+    <!-- 📸 Suggest adding circuit or detector photo -->
+    <img src="../projects/pic/short_detector.png" alt="Short-circuit detector prototype" class="project-img">
+
+    <p>
+      We also investigated how material types (hardwood, softwood, MDF) and panel thickness affect 
+      signal strength. Results showed hardwood plywood yielded the highest output voltage and 
+      stable sensing performance across common household activities such as writing, sawing, 
+      and drilling — even with nearby electronic interference.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Data & Analysis</h2>
+    <p>
+      The vibration signals were analyzed using <b>Empirical Mode Decomposition (EMD)</b> to extract dominant features.
+      Classification models such as Random Forests and SVMs achieved up to <b>93.2% recognition accuracy</b> for distinguishing interaction types.
+    </p>
+    <!-- ADD IMAGE -->
+    <img src="pic/woodowel_result.jpg" alt="Performance comparison chart between shielded and unshielded sensors">
+  </div>
+
+  <div class="section">
+    <h2>Reflection</h2>
+    <p>
+      As a computer science student, hardware prototyping and wood-based sensing were far from my comfort zone.
+      Thanks to the patience and guidance of my mentors and lab members, I gradually learned how to merge software algorithms with physical material design.
+      Each debugging session — from writing Python classification scripts to Using machine tools to produce wood panel materials — deepened my understanding of what it means to
+      bridge computation and the real world.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Demo Video</h2>
+    <iframe src="https://www.youtube.com/embed/ZBAiwVBv8i8" allowfullscreen></iframe>
+  </div>
+
+  <div class="section">
+    <h2>Acknowledgements</h2>
+    <p>
+      Special thanks to my supervisors and collaborators — 
+      <b>Dr. Teyen Wu, Dr. Xingdong Yang, Dr. Yuning Su, and Dr. Yonghao Shi (names are listed in alphabetical order, without implying any priority)</b> —
+      for their incredible support and mentorship.
+    </p>
+    <p>
+      Their guidance not only helped me understand complex physical concepts, but also showed me
+      how collaborative research brings ideas to life across disciplines.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Links</h2>
+    <ul>
+      <li><a href="https://dl.acm.org/doi/10.1145/3613904.3642304" target="_blank">ACM Paper ↗</a></li>
+    </ul>
+  </div>
+
+  <div class="back">
+    <a href="../index.html">⬅ Return to Main Page</a>
+  </div>
+</body>
+</html>

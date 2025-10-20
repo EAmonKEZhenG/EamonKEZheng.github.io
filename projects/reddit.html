@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reddit Sentiment Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #120a05 0%, #0a0503 100%);
+      color: #ffb86b;
+      font-family: 'IBM Plex Mono', monospace;
+      line-height: 1.7;
+      -webkit-font-smoothing: none;
+      text-rendering: geometricPrecision;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      color: #ffcc80;
+      text-shadow: 0 0 8px rgba(255, 200, 100, 0.6);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: #ffe0a3;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px #ffb86b;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 180, 80, 0.3);
+      margin: 20px 0;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 480px;
+      border: none;
+      margin: 30px 0;
+      box-shadow: 0 0 25px rgba(255, 180, 80, 0.4);
+      border-radius: 10px;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back a {
+      color: #ffb86b;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(255, 200, 100, 0.7);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Reddit Sentiment Analysis — Exploring Comment Quality Through Data</h1>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>
+      This project was conducted as the final project for <b>CMPT 353: Computational Data Science</b> at 
+      Simon Fraser University, under the supervision of <b>Professor Greg Baker</b>. 
+      It investigates the relationship between <b>sentiment scores</b>, <b>readability levels</b>, and the 
+      <b>perceived quality</b> of Reddit comments, using both statistical and machine learning methods.
+    </p>
+    <p>
+      By combining natural language processing and data analytics, we aimed to answer a key question:
+      <i>What factors make a Reddit comment “good”?</i>
+    </p>
+    <img src="pic/reddit_overview.png" alt="Overview of Reddit Sentiment Analysis workflow">
+  </div>
+
+  <div class="section">
+    <h2>Dataset and Features</h2>
+    <p>
+      The dataset, derived from Reddit’s 2016 archives, contained posts from five mid-sized subreddits 
+      totaling around <b>790 MB</b> of text data. Each entry included the comment content, author, 
+      timestamp, subreddit, and upvote score. We introduced additional features such as:
+    </p>
+    <ul>
+      <li><b>Sentiment score</b> (using NLTK’s VADER model)</li>
+      <li><b>Readability score</b> (using Flesch–Kincaid Grade Level)</li>
+      <li><b>Day type</b> (weekday vs. weekend)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Methodology</h2>
+    <p>
+      We applied two complementary approaches:
+    </p>
+    <ol>
+      <li><b>Ordinal Logistic Regression</b> — to interpret how sentiment, readability, and posting day 
+      influence a comment’s likelihood of being labeled as <i>bad</i>, <i>normal</i>, or <i>good</i>.</li>
+      <li><b>MLP Classifier</b> — a multilayer neural network to capture non-linear relationships among 
+      these features and predict comment quality.</li>
+    </ol>
+    <p>
+      Both models were trained and evaluated on SFU’s high-performance computing cluster.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Results</h2>
+    <p>
+      The regression analysis revealed that comments with <b>more positive sentiment</b> and 
+      <b>simpler readability</b> tended to score higher in quality. However, the effect was smaller than 
+      expected, indicating that quality perception on Reddit is multifaceted.
+    </p>
+    <p>
+      The MLP classifier achieved around <b>66% accuracy(really not good)</b> across different feature combinations, 
+      confirming that while linguistic features matter, social and contextual factors also play key roles.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Limitations and Future Work</h2>
+    <p>
+      Our analysis relied solely on textual and temporal features. Future improvements could include:
+    </p>
+    <ul>
+      <li>Expanding the neural network depth for more complex feature interactions.</li>
+      <li>Incorporating user-level metadata or topic modeling to enrich feature diversity.</li>
+      <li>Exploring temporal trends and subreddit-specific cultural effects.</li>
+    </ul>
+    <p>
+      With more time and computing power, a deeper model could reveal subtler semantic and behavioral 
+      patterns behind online engagement.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Acknowledgements</h2>
+    <p>
+      This project was completed by <b>Team GG</b>:  
+      <b>Eric Chan, Chenzheng Li, and <a href="https://www.linkedin.com/in/cheryl-peng-3b2139229/" target="_blank">Ziying Peng ↗</a></b>  
+      (<i>names are listed in alphabetical order, without implying any priority</i>).
+    </p>
+    <p>
+      We thank <b>Professor Greg Baker</b> for his guidance and valuable feedback throughout the course.  
+      Collaborating with my teammates taught me the importance of communication, trust, and shared learning — 
+      the true essence of team-based data science.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Links</h2>
+    <ul>
+      <li><a href="doc/CMPT353_TeamGG_Final_Report.pdf" target="_blank">Final Report (PDF) ↗</a></li>
+      <li><a href="https://github.sfu.ca/cla429/Reddit-Sentiment-Analysis-and-Readability-353Final-Project-2023" target="_blank">GitHub Repository ↗</a></li>
+    </ul>
+  </div>
+
+  <div class="back">
+    <a href="../index.html">⬅ Return to Main Page</a>
+  </div>
+</body>
+</html>

@@ -151,6 +151,17 @@
       mix-blend-mode: overlay;
       pointer-events: none;
     }
+    .terminal a {
+      color: #ffcc80;
+      text-shadow: 0 0 5px #ffcc80;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .terminal a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px #ffffff;
+    }
 
     .prompt {
       color: #ffb86b;
@@ -229,6 +240,7 @@
       <div class="links">
         <a href="#about" data-target="about">About</a>
         <a href="#hiring" data-target="hiring">Hiring</a>
+        <a href="#projects" data-target="projects">Projects</a>
         <a href="#contact" data-target="contact">Contact</a>
         <a href="ChenzhengLi_CV.pdf">CV↗</a>
       </div>
@@ -331,12 +343,26 @@
           '',
           'If you have any opportunities or resources, please feel free to contact me.'
         ],
-
+        projects: [
+          '<span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span> open projects',
+          '',
+          '=== My Projects ===',
+          '',
+          '1. <a href="projects/woodowel.html" target="_blank">WooDowel — Electrode Isolation for Electromagnetic Shielding in Triboelectric Plywood Sensors</a>',
+          '   A collaborative exploration of how natural materials like wood can sense human touch and motion, combining embedded hardware design with machine learning analysis.',
+          '',
+          '2. <a href="projects/reddit.html" target="_blank"> Reddit Sentiment Analysis and Readability</a>',
+          '   A data-driven exploration of how sentiment, readability, and posting time influence the perceived quality of Reddit comments',
+          '',
+          '====================',
+          '',
+          'Click the link to learn more.'
+        ],
         contact: [
           '<span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span> open contact',
           '',
-          '- lichenzheng2000 (at) gmail (dot) com',
           '- chenzheng_li (at) sfu (dot) ca',
+          '- lichenzheng2000 (at) gmail (dot) com',
           '- https://github.com/EAmonKEZhenG',
           '- https://www.linkedin.com/in/chenzheng-li-256574226/'
         ]  
@@ -354,10 +380,8 @@
              terminal.innerHTML += '<br><span class="prompt">chenzheng@CZ_MOTHERSHIP:~$</span><span class="cursor">_</span>';
             return;
           }
-         
-
           let line = lines[i];
-          if (line.includes("<span")) {
+          if (/<[a-z][\s\S]*>/i.test(line)) {
             terminal.innerHTML += line + "<br>";
             i++;
             typingTimer = setTimeout(step, 50);
@@ -377,6 +401,7 @@
             }
             typeChar();
           }
+
         }
 
         step();
