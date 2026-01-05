@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Large-Scale Sentiment and Topic Analysis — Amazon Product Reviews</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at center, #120a05 0%, #0a0503 100%);
+            color: #ffb86b;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.7;
+            -webkit-font-smoothing: none;
+            text-rendering: geometricPrecision;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #ffcc80;
+            text-shadow: 0 0 8px rgba(255, 200, 100, 0.6);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #ffe0a3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 6px #ffb86b;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 180, 80, 0.3);
+            margin: 20px 0;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 480px;
+            border: none;
+            margin: 30px 0;
+            box-shadow: 0 0 25px rgba(255, 180, 80, 0.4);
+            border-radius: 10px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back a {
+            color: #ffb86b;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255, 200, 100, 0.7);
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: rgba(255, 184, 107, 0.1);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #4a2e0a;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Large-Scale Sentiment and Topic Analysis of Amazon Product Reviews</h1>
+
+    <div class="section">
+        <h2>Project Members</h2>
+        <ul>
+            <li><b>Chenzheng Li</b> - cla429@sfu.ca</li>
+            <li><b>Wenxiang He</b> - wha61@sfu.ca</li>
+        </ul>
+
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://github.com/EAmonKEZhenG/Large-Scale-Sentiment-and-Topic-Analysis-of-Amazon-Product-Reviews"
+                    target="_blank">GitHub Repository ↗</a></li>
+            <li><a href="doc/CMPT_732_Final_Report.pdf" target="_blank">Final Report (PDF) ↗</a></li>
+            <li><a href="https://drive.google.com/file/d/19ixbLRnp2C6J2eCv9QgIHxc2I4O5-tIr/view?usp=sharing"
+                    target="_blank">Video Presentation ↗</a></li>
+            <li><a href="https://large-scale-sentiment-and-topic-analysis.onrender.com/" target="_blank">Visualization
+                    Web UI ↗</a> (Note: Render free tier may take a minute to wake up)</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Overview</h2>
+        <p>
+            This project performs <b>large-scale sentiment, topic, and behavioral analysis</b> on the <i>Amazon Product
+                Reviews 2023</i> dataset, which contains more than <b>571 million reviews</b> spanning nearly three
+            decades of global e-commerce activity. Our objective is to uncover both <b>micro-level user opinion
+                patterns</b> and <b>macro-level economic trends</b> using a unified and scalable NLP pipeline built on
+            top of <b>PySpark</b>.
+        </p>
+        <p>
+            At the <b>micro level</b>, we analyze how consumers express opinions through review text. We compute
+            sentiment polarity scores using <b>transformer-based sentiment models</b>, and extract dominant themes using
+            <b>BERTopic</b>, ensuring that all NLP components rely on a consistent embedding space powered by
+            <b>SentenceTransformers</b>. This unified architecture allows us to efficiently process reviews at scale
+            across Spark partitions.
+        </p>
+        <p>
+            At the <b>macro level</b>, we combine aggregated consumer sentiment with external economic indicators such
+            as the <b>World Bank CPI (inflation)</b> dataset. By aligning yearly sentiment trends with inflation
+            fluctuations, we explore whether consumer emotions expressed in product reviews show meaningful correlations
+            or lagging responses to broader economic conditions.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Project Structure</h2>
+        <p>The project is organized into a modular pipeline, separating data acquisition, ETL processing, core model
+            inference, and downstream analysis.</p>
+        <pre>
+.
+├── data/                       # Storage for raw and processed parquet files
+│   ├── raw/                    # Raw Amazon datasets (downloaded)
+│   └── processed/              # Cleaned data and sentiment inference results
+├── output/                     # Analysis results (CSV, HTML plots, Parquet extracts)
+├── src/                        # Source code
+│   ├── analysis/               # Analytical scripts (Micro & Macro level)
+│   ├── data/                   # Data ingestion scripts
+│   ├── etl/                    # Data cleaning and schema inspection
+│   ├── sentiment/              # Core AI inference engine
+│   └── web_dashboard/          # Interactive web dashboard for visualization
+├── requirements.txt            # Python3 dependencies
+└── run_pipeline.sh             # Master script to execute the full workflow
+    </pre>
+    </div>
+
+    <div class="section">
+        <h2>Execution Pipeline</h2>
+        <p>The workflow follows a 5-phase execution pipeline:</p>
+        <ol>
+            <li><b>Data Preparation</b>: Downloading raw datasets using Hugging Face libraries and cleaning data with
+                PySpark ETL jobs.</li>
+            <li><b>Sentiment Inference</b>: Distributed sentiment analysis using PySpark Pandas UDFs and a pre-trained
+                BERT model.</li>
+            <li><b>Analytics</b>: Detecting anomalous users (spammers), correlating sentiment with inflation (Macro
+                Analysis), and identifying mismatched reviews (Rating vs Sentiment).</li>
+            <li><b>Topic Modeling</b>: Applying BERTopic to mismatched reviews to understand conflicting feedback.</li>
+            <li><b>Web Dashboard</b>: Visualizing results via an interactive Flask application.</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>Limitations & Challenges</h2>
+        <p>
+            While the pipeline proved functional, our architectural verification highlighted several constraints that
+            limited the scope of our final analysis:
+        </p>
+        <ul>
+            <li>
+                <strong>Hardware Bottlenecks:</strong> The shared Hadoop cluster relied entirely on CPUs for inference.
+                Our benchmarks revealed that a local consumer CPU (Ryzen 3800X) was significantly faster (~6x) than the
+                cluster nodes for BERT inference.
+                This severe computational bottleneck constrained us to analyzing pilot subsets rather than the full
+                571M+ review dataset.
+            </li>
+            <li>
+                <strong>Sentiment Model Nuance:</strong> The pre-trained multilingual BERT model occasionally struggled
+                with domain-specific expressions and sarcasm.
+                For instance, negative context like "Felt synthetic" or "Polite negativity" in low-rated reviews was
+                sometimes misclassified as positive sentiment.
+            </li>
+            <li>
+                <strong>Infrastructure Restrictions:</strong> Strict cluster security/isolation (no internet on worker
+                nodes) prevented standard library usage.
+                We had to engineer complex workarounds, such as an "Offline Model Strategy" to manually distribute model
+                weights and environments via Spark broadcast.
+            </li>
+        </ul>
+    </div>
+
+    <div class="back">
+        <a href="../index.html">⬅ Return to Main Page</a>
+    </div>
+</body>
+
+</html>

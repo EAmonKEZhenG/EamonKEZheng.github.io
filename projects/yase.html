@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>YASE — Yet Another Storage Engine</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at center, #120a05 0%, #0a0503 100%);
+            color: #ffb86b;
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.7;
+            -webkit-font-smoothing: none;
+            text-rendering: geometricPrecision;
+            padding: 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #ffcc80;
+            text-shadow: 0 0 8px rgba(255, 200, 100, 0.6);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #ffe0a3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #fff;
+            text-shadow: 0 0 6px #ffb86b;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 180, 80, 0.3);
+            margin: 20px 0;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back a {
+            color: #ffb86b;
+            font-weight: 500;
+            text-shadow: 0 0 5px rgba(255, 200, 100, 0.7);
+        }
+
+        ul {
+            list-style-type: square;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>YASE: Yet Another Storage Engine</h1>
+
+    <div class="section">
+        <h2>Overview</h2>
+        <p>
+            YASE is a high-performance, ACID-compliant storage engine built from scratch in C++.
+            Developed as a course project for CMPT 454 (Database Systems II), it handles intricate data management
+            tasks,
+            including buffer pooling, concurrent indexing, transaction logging, and recovery.
+        </p>
+        <img src="pic/yase_intro.png" alt="YASE Architecture Diagram">
+    </div>
+
+    <div class="section">
+        <h2>Technical Architecture</h2>
+        <p>
+            The engine is composed of several tightly integrated modules, each addressing a critical aspect of database
+            internals:
+        </p>
+        <ul>
+            <li><strong>Buffer Manager:</strong> Implements an LRU (Least Recently Used) replacement policy with
+                pin/unpin logic to efficiently manage data pages in memory, optimizing for cache coherence.</li>
+            <li><strong>Index Manager:</strong> A concurrency-safe <strong>SkipList</strong> implementation that
+                supports high-throughput insertions and lookups, utilizing atomic operations and fine-grained locking
+                for thread safety.</li>
+            <li><strong>Transaction Manager:</strong> Ensures ACID properties through a 2PL (Two-Phase Locking) Lock
+                Manager and a Write-Ahead Logging (WAL) Log Manager for crash recovery and atomicity.</li>
+            <li><strong>Disk Storage:</strong> Custom page layout and slotted record management to optimize disk I/O
+                operations.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Performance & Results</h2>
+        <p>
+            In the final group performance race, our team achieved <strong>2nd Place</strong> among all competing
+            groups.
+            Our engine demonstrated superior throughput in multi-threaded benchmarks, handling high-contention workloads
+            with minimal latch contention.
+        </p>
+        <p>
+            We also implemented a comprehensive benchmarking framework (similar to TPC-C components) to validate the
+            performance of our SkipList and Buffer Manager under various load conditions.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Reflection</h2>
+        <p>
+            Building YASE was a deep dive into the "black box" of database systems. I was personally responsible for
+            implementing the Skiplist index,
+            Log Manager, Lock Manager, and the benchmarking framework.
+        </p>
+        <p>
+            One of the biggest challenges was debugging concurrency issues in the SkipList — memory leaks and race
+            conditions were frequent guests.
+            Using tools like Valgrind and rigorous unit testing (Google Test) helped us stabilize the system.
+            Collaborating with my teammates, Gurman and Dylan.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Links</h2>
+        <ul>
+            <li><span>Project Code (Private Repository) — Due to academic integrity policies, the source code cannot be
+                    made public.</span></li>
+        </ul>
+    </div>
+
+    <div class="back">
+        <a href="../index.html">⬅ Return to Main Page</a>
+    </div>
+</body>
+
+</html>
