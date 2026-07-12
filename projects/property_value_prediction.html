@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human vs AI Analysts for Predicting Vancouver Land Value</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at center, #120a05 0%, #0a0503 100%);
+      color: #ffb86b;
+      font-family: 'IBM Plex Mono', monospace;
+      line-height: 1.7;
+      -webkit-font-smoothing: none;
+      text-rendering: geometricPrecision;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: #ffcc80;
+      text-shadow: 0 0 8px rgba(255, 200, 100, 0.6);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: #ffe0a3;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #fff;
+      text-shadow: 0 0 6px #ffb86b;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .back a {
+      color: #ffb86b;
+      font-weight: 500;
+      text-shadow: 0 0 5px rgba(255, 200, 100, 0.7);
+    }
+
+    ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Human vs AI Analysts for Predicting Vancouver Land Value</h1>
+
+  <div class="section">
+    <h2>Overview</h2>
+    <p>
+      This project builds an end-to-end, reproducible land-value prediction system using public Vancouver datasets.
+      The core goal is both practical and methodological: predict land assessment values with robust error control, and
+      compare a human-designed machine learning pipeline against two AI-agent development workflows.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Motivation</h2>
+    <p>
+      Property valuation is strongly affected by location, legal structure, and market conditions, but many pipelines
+      are difficult to reproduce over time. We designed this system to test whether AI-assisted workflows can match the
+      stability and performance of a carefully engineered human pipeline under realistic, time-aware evaluation.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Data Pipeline</h2>
+    <ul>
+      <li>Cleaned Vancouver property tax records and standardized yearly external datasets.</li>
+      <li>Merged property-level, location, legal type, zoning, mortgage, immigration, study-permit, and rental-supply
+        indicators.</li>
+      <li>Enforced a time-aware split to reduce leakage and simulate forward deployment:
+        <ul>
+          <li><b>Train:</b> REPORT_YEAR &lt; 2024</li>
+          <li><b>Test:</b> REPORT_YEAR &gt;= 2024</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Modeling Methodology</h2>
+    <ul>
+      <li>Applied a <b>log1p</b> target transformation for better error behavior on high-value outliers.</li>
+      <li>Used <b>train-only target encoding</b> for high-cardinality categorical features, including postal code,
+        neighbourhood code, and legal type.</li>
+      <li>Focused on strict reproducibility: deterministic preprocessing, explicit feature construction, and clear
+        train/test boundary handling.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Human vs AI-Agent Workflows</h2>
+    <ul>
+      <li><b>Human Pipeline:</b> manually designed feature engineering and validation strategy with reproducible
+        controls.</li>
+      <li><b>Mode I:</b> OpenAI Code Interpreter cloud workflow for rapid exploratory modeling and iteration.</li>
+      <li><b>Mode II:</b> local Claude Code workflow for code-first automation and local experimentation.</li>
+    </ul>
+    <p>
+      The comparison emphasizes not just model score, but also repeatability, clarity of assumptions, and operational
+      stability.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Web Application</h2>
+    <p>
+      We deployed an interactive prediction interface with a <b>React frontend</b> and <b>REST API backend</b>:
+    </p>
+    <ul>
+      <li><b>Precise Mode:</b> structured property-attribute input for deterministic prediction.</li>
+      <li><b>Fuzzy Mode:</b> address-based search with candidate matching for practical user workflows.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Results</h2>
+    <p>Final human-designed pipeline performance:</p>
+    <ul>
+      <li><b>MAE:</b> 590,973 CAD</li>
+      <li><b>Median APE:</b> 11.81%</li>
+      <li><b>Robust MAE:</b> 489,160 CAD</li>
+    </ul>
+    <p>
+      Main finding: detailed local location and property-type signals were substantially more predictive than broad
+      yearly macro indicators.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Lessons Learned</h2>
+    <p>
+      AI agents were highly useful for exploration, iteration speed, and generating alternative solution paths.
+      However, the human-designed workflow remained more stable, reproducible, and accurate under strict temporal
+      evaluation and feature leakage controls.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Links</h2>
+    <ul>
+      <li><a href="https://github.sfu.ca/cla429/cmpt733-property-value-prediction-system" target="_blank">GitHub
+          Repository ↗</a></li>
+      <li><a href="https://vancouver-land-value-prediction-sys.vercel.app/" target="_blank">Live Demo ↗</a></li>
+    </ul>
+  </div>
+
+  <div class="back">
+    <a href="../index.html">⬅ Return to Main Page</a>
+  </div>
+</body>
+
+</html>
